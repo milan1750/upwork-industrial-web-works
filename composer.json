@@ -1,0 +1,50 @@
+{
+	"name": "milan1750/wp-scraper",
+	"description": "Custom scraper",
+	"homepage": "https://github.com/milan1750",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"config": {
+		"process-timeout": 0
+	},
+	"require": {
+		"php": ">=5.6.20",
+		"composer/installers": "2.0.0"
+	},
+	"require-dev": {
+		"wp-cli/i18n-command": "2.2.9",
+		"wp-coding-standards/wpcs": "2.3.0",
+		"dealerdirect/phpcodesniffer-composer-installer": "0.7.1",
+		"phpcompatibility/phpcompatibility-wp": "2.1.2",
+		"sirbrillig/phpcs-variable-analysis": "2.11.2"
+	},
+	"autoload": {
+		"psr-4": {
+			"WPScraper\\": "includes/"
+		}
+	},
+	"scripts": {
+		"phpcs": [
+			"phpcs"
+		],
+		"phpcbf": [
+			"phpcbf"
+		],
+		"makepot": [
+			"@makepot:audit --skip-audit"
+		],
+		"makepot:audit": [
+			"wp --allow-root i18n make-pot . --slug=wpscraper"
+		]
+	},
+	"extra": {
+		"scripts-description": {
+			"phpcs": "Analyze code against the WordPress coding standard with PHP_CodeSniffer",
+			"phpcbf": "Fix coding standards warnings/errors automattically with PHP Code Beautifier",
+			"makepot": "Generate langauges/wpscraper.pot file",
+			"makepot:audit": "Generate langauges/wpscraper.pot file and run audit"
+		}
+	}
+}
