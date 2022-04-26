@@ -17,6 +17,57 @@ class Crawler {
 		add_action( 'wp_ajax_nopriv_show_infinite_loop_listing', [ $this, 'scrapping_show_infinite_loop_listingrecords' ] );
 		add_action( 'wp_ajax_show_infinite_loop_listing', [ $this, 'scrapping_show_infinite_loop_listingrecords' ] );
 
+		add_action( 'wp_ajax_nopriv_show_district_listing', [ $this, 'show_district_listing' ] );
+		add_action( 'wp_ajax_show_district_listing', [ $this, 'show_district_listing' ] );
+
+	}
+
+	/**
+	 * show district listing.
+	 *
+	 * @return void
+	 */
+	public function show_district_listing() {
+		global $wpdb;
+		$wpdb_prefix    = $wpdb->prefix;
+		$wpdb_tablename = $wpdb_prefix . 'listings';
+		// $_POST
+		$district    = $_GET['district'];
+		$district_id = $_GET['district_val'];
+
+		if ( $district_id != '' ) {
+			$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb_tablename WHERE district = %s limit 10", $district ) );
+		} else {
+			$results = $wpdb->get_results( "SELECT * FROM $wpdb_tablename limit 10" );
+		}
+
+		if ( ! empty( $results ) ) {
+			$html = '';
+			foreach ( $results as $result ) {
+				$html .= '<tr id="listing_deal_content_tr" class="listing_deal_content_tr">';
+				$html .= '<td data-th="' . _( 'Occ Code' ) . '">' . $result->occupational_code . '</td>';
+				$html .= '<td data-th="' . _( 'Occupation' ) . '"><a class="js-open-modal" href="javascript:void(0)" id="js-open-modal-' . $result->id . '" data-id="' . $result->id . '">' . $result->occupation . '</a></td>';
+				$html .= '<td data-th="' . _( 'Program Name' ) . '">' . $result->program_name . '</td>';
+				$html .= '<td data-th="' . _( 'Program Hours' ) . '">' . $result->program_hour . '</td>';
+				$html .= '<td data-th="' . _( 'District' ) . '">' . $result->district . '</td>';
+				$html .= '<td data-th="' . _( 'Action' ) . '"><a class="contact_form" href="javascript:void(0)" id="contact_form-' . $result->id . '>" data-occupation="' . $result->occupation . '" data-program_name="' . $result->program_name . '" data-listing_id="' . $result->listing_id . '" data-district="' . $result->district . '">' . _( 'Contact us' ) . '</a></td>';
+
+				$html .= '<input type="hidden" id="description-' . $result->id . '" value="' . $result->program_description . '">';
+				$html .= '<input type="hidden" id="ktitle-' . $result->id . '" value="' . $result->occupation . '">';
+				$html .= '</tr>';
+
+				$response['success'] = 1;
+			}
+		} else {
+			$html                = '<div class="text-center col-sm-12" id="no_results">';
+			$html               .= '<h2> ' . __( 'No Results' ) . ' </h2>';
+			$html               .= '</div>';
+			$response['success'] = 0;
+		}
+
+		$response['html'] = $html;
+		echo json_encode( $response );
+		exit;
 	}
 
 	/**
@@ -32,16 +83,13 @@ class Crawler {
 		// $_POST
 		$limit    = absint( $_GET['limit'] );
 		$start    = absint( $_GET['start'] );
-		$district = ( isset( $_GET['district'] ) ? $_GET['district'] : '' );
+		$district = ( isset( $_GET['district'] ) ? sanitize_title( wp_unslash( $_GET['district'] ) ) : '' );
 
 		if ( $district != '' && $district != 'Select District' ) {
-			$sql = "SELECT * FROM $wpdb_tablename WHERE district = '" . $district . "' limit $start,$limit";
+			$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb_tablename WHERE district = %s limit %d,%d", $district, $start, $limit ) );
 		} else {
-			$sql = "SELECT * FROM $wpdb_tablename limit $start,$limit";
+			$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb_tablename limit %d,%d", $start, $limit ) );
 		}
-
-		$results = $wpdb->get_results( $sql );
-
 		if ( ! empty( $results ) ) {
 			$html = '';
 			foreach ( $results as $result ) {
@@ -51,7 +99,7 @@ class Crawler {
 				$html .= '<td data-th="' . _( 'Program Name' ) . '">' . $result->program_name . '</td>';
 				$html .= '<td data-th="' . _( 'Program Hours' ) . '">' . $result->program_hour . '</td>';
 				$html .= '<td data-th="' . _( 'District' ) . '">' . $result->district . '</td>';
-				$html .= '<td data-th="' . _( 'Action' ) . '"><a class="contact_form" href="javascript:void(0)" id="contact_form-' . $result->id . '>" data-occupation="' . $result->occupation . '" data-program_name="' . $result->program_name . '>" data-listing_id="' . $result->listing_id . '" data-district="' . $result->district . '">' . _( 'Contact us' ) . '</a></td>';
+				$html .= '<td data-th="' . _( 'Action' ) . '"><a class="contact_form" href="javascript:void(0)" id="contact_form-' . $result->id . '" data-occupation="' . $result->occupation . '" data-program_name="' . $result->program_name . '" data-listing_id="' . $result->listing_id . '" data-district="' . $result->district . '">' . _( 'Contact us' ) . '</a></td>';
 
 				$html .= '<input type="hidden" id="description-' . $result->id . '" value="' . $result->program_description . '">';
 				$html .= '<input type="hidden" id="ktitle-' . $result->id . '" value="' . $result->occupation . '">';
@@ -128,10 +176,9 @@ class Crawler {
 		$items = pq( 'table#ctl00_ContentPlaceHolder1_tblResults tr:contains("Occupations Covered:") td:eq(1) ul li' );
 
 		foreach ( $items as $item ) {
-			$item                            = pq( $item );
-			$occupation                      = $item->text();
-			$occupation_url                  = $item->find( 'a' )->attr( 'href' );
-			$MasterArr[ $cnt ]['occupation'] = $occupation;
+			$item           = pq( $item );
+			$occupation     = $item->text();
+			$occupation_url = $item->find( 'a' )->attr( 'href' );
 
 			$url = 'https://web02.fldoe.org/Apprenticeship/' . $occupation_url;
 			// $url = "http://localhost/theoshaman/details.html";
@@ -161,13 +208,13 @@ class Crawler {
 			foreach ( $rows as $row ) {
 				$row = pq( $row );
 				if ( (int) $row->find( 'td:eq(4)' )->text() === 4 ) {
-					$occupational_code = $row->find( 'td:eq(0)' )->text();
-					$program_name      = $row->find( 'td:eq(1)' )->text();
-					$program_hour      = $row->find( 'td:eq(2)' )->text();
-					$sponsor           = $row->find( 'td:eq(3)' )->text();
-					$region            = $row->find( 'td:eq(4)' )->text();
-					$district          = $row->find( 'td:eq(5)' )->text();
-
+					$occupational_code                        = $row->find( 'td:eq(0)' )->text();
+					$program_name                             = $row->find( 'td:eq(1)' )->text();
+					$program_hour                             = $row->find( 'td:eq(2)' )->text();
+					$sponsor                                  = $row->find( 'td:eq(3)' )->text();
+					$region                                   = $row->find( 'td:eq(4)' )->text();
+					$district                                 = $row->find( 'td:eq(5)' )->text();
+					$MasterArr[ $cnt ]['occupation']          = $occupation;
 					$MasterArr[ $cnt ]['occupational_code']   = $occupational_code;
 					$program_name_arr                         = explode( ',', $program_name );
 					$MasterArr[ $cnt ]['listing_id']          = ( isset( $program_name_arr[1] ) ) ? $program_name_arr[1] : '';

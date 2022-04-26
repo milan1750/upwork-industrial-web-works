@@ -70,58 +70,58 @@ jQuery(document).ready(function($){
     });
 });
 
-// jQuery(document).ready(function($){
-//     jQuery(".genesisprd_dialog").dialog({
-//         modal: true,
-//         autoOpen: false,
-//         title: "Workforce Education",
-//         width: 300,
-//         height: 500,
-//         draggable: false
-//     }); 
-//     jQuery(".genesisprd_contact_dialog").dialog({
-//         modal: true,
-//         autoOpen: false,
-//         title: "Contact Form",
-//         width: 300,
-//         height: 500,
-//         draggable: false
-//     });
-//     // jQuery('.js-open-modal').on('click',function(){
-//     jQuery(document).on("click", ".js-open-modal", function () {
-//         jQuery('.genesisprd_dialog p.desc').html('');
-//         jQuery('.genesisprd_dialog').attr('title', '');
+jQuery(document).ready(function($){
+    jQuery(".genesisprd_dialog").dialog({
+        modal: true,
+        autoOpen: false,
+        title: "Workforce Education",
+        width: 300,
+        height: 500,
+        draggable: false
+    }); 
+    jQuery(".genesisprd_contact_dialog").dialog({
+        modal: true,
+        autoOpen: false,
+        title: "Contact Form",
+        width: 300,
+        height: 500,
+        draggable: false
+    });
+    // jQuery('.js-open-modal').on('click',function(){
+    jQuery(document).on("click", ".js-open-modal", function () {
+        jQuery('.genesisprd_dialog p.desc').html('');
+        jQuery('.genesisprd_dialog').attr('title', '');
         
-//         var dataid = jQuery(this).attr('data-id');
-//         var desc = jQuery('#description-'+dataid).val();
-//         var ktitle = jQuery('#ktitle-'+dataid).val();
-//         console.log(ktitle);
-//         //alert(ktitle);
-//         if(ktitle!=''){
-//             jQuery('.genesisprd_dialog').attr('title', ktitle);
-//             jQuery('.ui-dialog-title').html(ktitle);
-//         }
-//         if(desc!=""){
-//             jQuery('.genesisprd_dialog p.desc').html(desc);
-//         }
-//         jQuery( ".genesisprd_dialog" ).dialog('open');
-//     })
-//     // Enquiry Form
-//     jQuery(document).on("click", ".contact_form", function () {
-//         var $this = this;
-//         var occupation = $($this).attr('data-occupation');
-//         //console.log(occupation);return false;
-//         var program_name = $($this).attr('data-program_name');
-//         var listing_id = $($this).attr('data-listing_id');
-//         var district = $($this).attr('data-district');
+        var dataid = jQuery(this).attr('data-id');
+        var desc = jQuery('#description-'+dataid).val();
+        var ktitle = jQuery('#ktitle-'+dataid).val();
+        console.log(ktitle);
+        //alert(ktitle);
+        if(ktitle!=''){
+            jQuery('.genesisprd_dialog').attr('title', ktitle);
+            jQuery('.ui-dialog-title').html(ktitle);
+        }
+        if(desc!=""){
+            jQuery('.genesisprd_dialog p.desc').html(desc);
+        }
+        jQuery( ".genesisprd_dialog" ).dialog('open');
+    })
+    // Enquiry Form
+    jQuery(document).on("click", ".contact_form", function () {
+        var $this = this;
+        var occupation = $($this).attr('data-occupation');
+        //console.log(occupation);return false;
+        var program_name = $($this).attr('data-program_name');
+        var listing_id = $($this).attr('data-listing_id');
+        var district = $($this).attr('data-district');
 
-//         jQuery('.frm6 input:text').eq(2).val(occupation);
-//         jQuery('.frm6 input:text').eq(3).val(program_name);
-//         jQuery('.frm6 input:text').eq(4).val(listing_id);
-//         jQuery('.frm6 input:text').eq(5).val(district);
-//         jQuery( ".genesisprd_contact_dialog" ).dialog('open');
-//     })
-// });
+        jQuery('.frm6 input:text').eq(2).val(occupation);
+        jQuery('.frm6 input:text').eq(3).val(program_name);
+        jQuery('.frm6 input:text').eq(4).val(listing_id);
+        jQuery('.frm6 input:text').eq(5).val(district);
+        jQuery( ".genesisprd_contact_dialog" ).dialog('open');
+    })
+});
 
 var limit = 10;
 var start = 10;

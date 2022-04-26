@@ -61,7 +61,7 @@ class Setting {
 		echo '<select name="wpscraper_options[' . $args['id'] . ']" id="' . $args['id'] . '">';
 		echo '<option value="hourly" ' . ( 'hourly' === $args['value'] ? 'selected' : '' ) . '>' . esc_html__( 'Hourly', 'wpscraper' ) . '</option>';
 		echo '<option value="daily" ' . ( 'daily' === $args['value'] ? 'selected' : '' ) . '>' . esc_html__( 'Daily', 'wpscraper' ) . '</option>';
-		echo '<option value="twicedaily" ' . ( 'twicedaily' === $args['value'] ? 'selected' : '' ) . '>' . esc_html__( 'Twicedaily', 'wpscraper' ) . '</option>';
+		echo '<option value="twicedaily" ' . ( 'twicedaily' === $args['value'] ? 'selected' : '' ) . '>' . esc_html__( 'Twice Daily', 'wpscraper' ) . '</option>';
 		echo '</select>';
 	}
 

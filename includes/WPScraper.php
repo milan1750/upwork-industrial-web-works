@@ -88,11 +88,6 @@ class WPScraper {
 		wp_enqueue_style( 'wpscraper_style', plugins_url( 'asset/css/style.css', WPSCRAPER_PLUGIN_FILE ), WPSCRAPER_VERSION );
 		wp_enqueue_script( 'wpscraper_jquery', 'https://code.jquery.com/jquery-3.6.0.js', WPSCRAPER_VERSION );
 		wp_enqueue_script( 'wpscraper_js', plugins_url( 'asset/js/custom.js', WPSCRAPER_PLUGIN_FILE ), WPSCRAPER_VERSION );
-
-		wp_enqueue_style( 'scrapping-front-style-wpsp', plugins_url( 'asset/css/style.css', WPSCRAPER_PLUGIN_FILE ) );
-		wp_enqueue_style( 'scrapping-jquery-ui-css', plugins_url( 'asset/lib/jquery-ui/css/jquery-ui.css', WPSCRAPER_PLUGIN_FILE ) );
-		wp_enqueue_script( 'scrapping-jquery-ui-js', plugins_url( 'asset/lib/jquery-ui/js/jquery-ui.js', WPSCRAPER_PLUGIN_FILE ) );
-		wp_enqueue_script( 'scrapping-infinite-scroll-js', plugins_url( 'asset/lib/infinite-scroll/infinite-scroll.pkgd.js', WPSCRAPER_PLUGIN_FILE ) );
 		wp_localize_script( 'wpscraper_js', 'export_all_ajax_object', [ 'ajaxurl' => admin_url( 'admin-ajax.php' ) ] );
 	}
 
@@ -126,9 +121,9 @@ class WPScraper {
 		register_uninstall_hook( __FILE__, [ $this, 'delete_scrapping_plugin_database_table' ] );
 		wp_clear_scheduled_hook( 'wpscraper_cleanup_scheduled_crawler' );
 		$settings = get_option( 'wpscraper_options', [] );
-		$period   = ! empty( $settings['wpscraper_cronexecution_schedule_period'] ) ? $settings['wpscraper_cronexecution_schedule_period'] : 'monthly';
+		$period   = ! empty( $settings['wpscraper_cronexecution_schedule_period'] ) ? $settings['wpscraper_cronexecution_schedule_period'] : 'daily';
 		$time     = ! empty( $settings['wpscraper_cronexecution_schedule_time'] ) ? $settings['wpscraper_cronexecution_schedule_time'] : '12:00';
-		wp_schedule_event( strtotime( date( 'Y:m:d' ) . ' ' . $time . ' 00' ), $period, 'wpscraper_cleanup_scheduled_crawler' );
+		wp_schedule_event( strtotime( date( 'Y:m:d' ) . ' ' . $time . ':00' ), $period, 'wpscraper_cleanup_scheduled_crawler' );
 	}
 
 	/**

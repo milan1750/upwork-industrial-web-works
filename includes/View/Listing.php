@@ -13,12 +13,12 @@ class Listing {
 		add_shortcode( 'form_listing_records', [ $this, 'scrapping_form_listing_html' ] );
 	}
 
-    public function scrapping_form_listing_html( $args ) {
+	public function scrapping_form_listing_html( $args ) {
 		global $wpdb;
 		$wpdb_tablename = $wpdb->prefix . 'listings';
 		// $sql = 'SELECT DISTINCT(district) as unique_district,id,occupation FROM ' .$wpdb_tablename .' GROUP by (unique_district) order by id asc limit 10' ;
-		$occupations     = $wpdb->get_results( 'SELECT occupation,id,district AS unique_district FROM ' . $wpdb_tablename . ' GROUP by (occupation) order by id asc ' );
-		$districts       = $wpdb->get_results( 'SELECT DISTINCT(district) as unique_district,id,occupation FROM ' . $wpdb_tablename . ' GROUP by (unique_district) order by id asc' );
+		$occupations = $wpdb->get_results( 'SELECT occupation,id,district AS unique_district FROM ' . $wpdb_tablename . ' GROUP by (occupation) order by id asc ' );
+		$districts   = $wpdb->get_results( 'SELECT DISTINCT(district) as unique_district,id,occupation FROM ' . $wpdb_tablename . ' GROUP by (unique_district) order by id asc' );
 		$current_url = get_permalink( get_the_ID() );
 		echo '<div class="genesisprd-container">';
 		echo '<form autocomplete="off" class="form-inline" method="get" action="' . esc_attr( get_permalink( get_the_ID() ) ) . '">';
@@ -27,7 +27,7 @@ class Listing {
 		echo '<div class="what-placeholder pos-relative" data-holder="">';
 		echo '<select name="occupation" id="occupation" class="form-select" aria-label="Default select example" required>';
 		echo '<option value="">' . esc_html__( 'Select Occupation', 'wpretail' ) . '</option>';
-		if ( ! empty( $occupations ) ) {    
+		if ( ! empty( $occupations ) ) {
 			foreach ( $occupations as $listing ) {
 				?>
 			<option value="<?php echo $listing->id; ?>" data-district="<?php echo $listing->unique_district; ?>"><?php echo $listing->occupation; ?></option>
