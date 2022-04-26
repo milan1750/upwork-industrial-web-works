@@ -19,15 +19,19 @@ class Crawler {
 
 	}
 
+	/**
+	 * Scrapping show infinite loop listingrecords.
+	 *
+	 * @return void
+	 */
 	public function scrapping_show_infinite_loop_listingrecords() {
 		global $wpdb;
 		$wpdb_prefix    = $wpdb->prefix;
 		$wpdb_tablename = $wpdb_prefix . 'listings';
 		// $limitCount = 3;
 		// $_POST
-		$limit    = $_GET['limit'];
-		$start    = $_GET['start'];
-		$paged    = $_GET['page'];
+		$limit    = absint( $_GET['limit'] );
+		$start    = absint( $_GET['start'] );
 		$district = ( isset( $_GET['district'] ) ? $_GET['district'] : '' );
 
 		if ( $district != '' && $district != 'Select District' ) {

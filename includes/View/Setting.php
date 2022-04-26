@@ -78,7 +78,7 @@ class Setting {
 	/**
 	 * Settings callbacjk.
 	 *
-	 * @param mixed $args 
+	 * @param mixed $args
 	 * @return void
 	 */
 	public static function wpscrapper_settings_callback( $args ) {
