@@ -32,10 +32,10 @@ class WPScraper {
 	 * Include required core files used in admin and on the frontend.
 	 */
 	public function init() {
-		// include_once plugin_dir_path( WPSCRAPER_PLUGIN_FILE ) . 'includes/library/PhpQuery.php';
+		include_once plugin_dir_path( WPSCRAPER_PLUGIN_FILE ) . 'includes/library/PhpQuery.php';
 		new WPScraper\View\Setting();
 		new WPScraper\View\Listing();
-		// new WPScraper\Crawler();
+		new WPScraper\Crawler();
 	}
 
 	/**
