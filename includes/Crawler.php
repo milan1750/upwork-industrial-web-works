@@ -45,22 +45,22 @@ class Crawler {
 			$html = '';
 			foreach ( $results as $result ) {
 				$html .= '<tr id="listing_deal_content_tr" class="listing_deal_content_tr">';
-				$html .= '<td data-th="' . _( 'Occ Code' ) . '">' . $result->occupational_code . '</td>';
-				$html .= '<td data-th="' . _( 'Occupation' ) . '"><a class="js-open-modal" href="javascript:void(0)" id="js-open-modal-' . $result->id . '" data-id="' . $result->id . '">' . $result->occupation . '</a></td>';
-				$html .= '<td data-th="' . _( 'Program Name' ) . '">' . $result->program_name . '</td>';
-				$html .= '<td data-th="' . _( 'Program Hours' ) . '">' . $result->program_hour . '</td>';
-				$html .= '<td data-th="' . _( 'District' ) . '">' . $result->district . '</td>';
-				$html .= '<td data-th="' . _( 'Action' ) . '"><a class="contact_form" href="javascript:void(0)" id="contact_form-' . $result->id . '>" data-occupation="' . $result->occupation . '" data-program_name="' . $result->program_name . '" data-listing_id="' . $result->listing_id . '" data-district="' . $result->district . '">' . _( 'Contact us' ) . '</a></td>';
+				$html .= '<td data-th="' . esc_attr__( 'Occ Code', 'wpscraper' ) . '">' . $result->occupational_code . '</td>';
+				$html .= '<td data-th="' . esc_attr__( 'Occupation', 'wpscraper' ) . '"><a class="js-open-modal" href="javascript:void(0)" id="js-open-modal-' . $result->id . '" data-id="' . $result->id . '">' . $result->occupation . '</a></td>';
+				$html .= '<td data-th="' . esc_attr__( 'Program Name', 'wpscraper' ) . '">' . $result->program_name . '</td>';
+				$html .= '<td data-th="' . esc_attr__( 'Program Hours', 'wpscraper' ) . '">' . $result->program_hour . '</td>';
+				$html .= '<td data-th="' . esc_attr__( 'District', 'wpscraper' ) . '">' . $result->district . '</td>';
+				$html .= '<td data-th="' . esc_attr__( 'Action', 'wpscraper' ) . '"><a class="contact_form" href="javascript:void(0)" id="contact_form-' . $result->id . '>" data-occupation="' . $result->occupation . '" data-program_name="' . $result->program_name . '" data-listing_id="' . $result->listing_id . '" data-district="' . $result->district . '">' . _( 'Contact us' ) . '</a></td>';
 
-				$html .= '<input type="hidden" id="description-' . $result->id . '" value="' . $result->program_description . '">';
-				$html .= '<input type="hidden" id="ktitle-' . $result->id . '" value="' . $result->occupation . '">';
+				$html .= '<input type="hidden" id="description-' . esc_attr( $result->id ) . '" value="' . esc_attr( $result->program_description ) . '">';
+				$html .= '<input type="hidden" id="ktitle-' . esc_attr( $result->id ) . '" value="' . esc_attr( $result->occupation ) . '">';
 				$html .= '</tr>';
 
 				$response['success'] = 1;
 			}
 		} else {
 			$html                = '<div class="text-center col-sm-12" id="no_results">';
-			$html               .= '<h2> ' . __( 'No Results' ) . ' </h2>';
+			$html               .= '<h2> ' . __( 'No Results', 'wpscraper' ) . ' </h2>';
 			$html               .= '</div>';
 			$response['success'] = 0;
 		}
@@ -79,8 +79,6 @@ class Crawler {
 		global $wpdb;
 		$wpdb_prefix    = $wpdb->prefix;
 		$wpdb_tablename = $wpdb_prefix . 'listings';
-		// $limitCount = 3;
-		// $_POST
 		$limit    = absint( $_GET['limit'] );
 		$start    = absint( $_GET['start'] );
 		$district = ( isset( $_GET['district'] ) ? sanitize_title( wp_unslash( $_GET['district'] ) ) : '' );

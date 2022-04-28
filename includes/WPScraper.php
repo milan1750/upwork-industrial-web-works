@@ -26,15 +26,6 @@ class WPScraper {
 		$this->init_hooks();
 		add_action( 'admin_enqueue_scripts', [ $this, 'wpscraper_admin_script' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'wpscraper_frontend_script' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'scrapping_cstm_css_and_js' ] );
-
-	}
-
-	public function scrapping_cstm_css_and_js() {
-		wp_enqueue_style( 'scrapping-front-style-wpsp', plugins_url( 'asset/css/style.css', WPSCRAPER_PLUGIN_FILE ) );
-		wp_enqueue_style( 'scrapping-jquery-ui-css', plugins_url( 'asset/lib/jquery-ui/css/jquery-ui.css', WPSCRAPER_PLUGIN_FILE ) );
-		wp_enqueue_script( 'scrapping-jquery-ui-js', plugins_url( 'asset/lib/jquery-ui/js/jquery-ui.js', WPSCRAPER_PLUGIN_FILE ) );
-		wp_enqueue_script( 'scrapping-infinite-scroll-js', plugins_url( 'asset/lib/infinite-scroll/infinite-scroll.pkgd.js', WPSCRAPER_PLUGIN_FILE ) );
 	}
 
 	/**
@@ -85,10 +76,13 @@ class WPScraper {
 	 * @return void
 	 */
 	public function wpscraper_frontend_script() {
-		wp_enqueue_style( 'wpscraper_style', plugins_url( 'asset/css/style.css', WPSCRAPER_PLUGIN_FILE ), WPSCRAPER_VERSION );
-		wp_enqueue_script( 'wpscraper_jquery', 'https://code.jquery.com/jquery-3.6.0.js', WPSCRAPER_VERSION );
-		wp_enqueue_script( 'wpscraper_js', plugins_url( 'asset/js/custom.js', WPSCRAPER_PLUGIN_FILE ), WPSCRAPER_VERSION );
+		wp_enqueue_style( 'wpscraper_style', plugins_url( 'asset/css/style.css', WPSCRAPER_PLUGIN_FILE ), [], WPSCRAPER_VERSION );
+		wp_register_script( 'wpscraper_js', plugins_url( 'asset/js/custom.js', WPSCRAPER_PLUGIN_FILE ), [ 'jquery' ], WPSCRAPER_VERSION );
 		wp_localize_script( 'wpscraper_js', 'export_all_ajax_object', [ 'ajaxurl' => admin_url( 'admin-ajax.php' ) ] );
+
+		wp_enqueue_style( 'scrapping-jquery-ui-css', plugins_url( 'asset/lib/jquery-ui/css/jquery-ui.css', WPSCRAPER_PLUGIN_FILE ), [], WPSCRAPER_VERSION );
+		wp_enqueue_script( 'scrapping-jquery-ui-js', plugins_url( 'asset/lib/jquery-ui/js/jquery-ui.js', WPSCRAPER_PLUGIN_FILE ), [ 'jquery' ], WPSCRAPER_VERSION );
+		wp_enqueue_script( 'scrapping-infinite-scroll-js', plugins_url( 'asset/lib/infinite-scroll/infinite-scroll.pkgd.js', WPSCRAPER_PLUGIN_FILE ),[], WPSCRAPER_VERSION );
 	}
 
 	/**
