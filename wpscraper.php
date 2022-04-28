@@ -114,6 +114,8 @@ function create_scrapping_plugin_database_table() {
 		$sql .= '`district` varchar(255) NOT NULL,';
 		$sql .= '`created_at` timestamp NOT NULL DEFAULT current_timestamp(),';
 		$sql .= " `updated_at` timestamp NULL DEFAULT NULL,";
+		$sql .= '`region` int(11),';
+		$sql .= '`sponsor` int(11),';
 		$sql .= 'PRIMARY KEY (id)';
 		$sql .= ') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4';
 		include_once ABSPATH . '/wp-admin/includes/upgrade.php';
