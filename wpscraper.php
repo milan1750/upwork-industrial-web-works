@@ -88,3 +88,46 @@ function wpscraper() {
 }
 
 wpscraper();
+
+register_activation_hook( WPSCRAPER_PLUGIN_FILE, 'create_scrapping_plugin_database_table' );
+
+register_uninstall_hook( __FILE__,  'delete_scrapping_plugin_database_table' );
+
+
+/**
+ * Create plugin database table.
+ *
+ * @return void
+ */
+function create_scrapping_plugin_database_table() {
+	global $wpdb;
+	$wp_track_table = $wpdb->prefix . 'listings';
+	if ( $wpdb->get_var( "show tables like '$wp_track_table'" ) != $wp_track_table ) {
+		$sql  = 'CREATE TABLE ' . $wp_track_table . ' (';
+		$sql .= 'id int(11) NOT NULL AUTO_INCREMENT,';
+		$sql .= ' `listing_id` varchar(255) NOT NULL,';
+		$sql .= '`program_name` varchar(255) NOT NULL,';
+		$sql .= '`program_description` longtext DEFAULT NULL,';
+		$sql .= '`program_hour` varchar(100) NOT NULL,';
+		$sql .= '`occupational_code` varchar(255) NOT NULL,';
+		$sql .= '`occupation` varchar(255) NOT NULL,';
+		$sql .= '`district` varchar(255) NOT NULL,';
+		$sql .= '`created_at` timestamp NOT NULL DEFAULT current_timestamp(),';
+		$sql .= " `updated_at` timestamp NULL DEFAULT NULL,";
+		$sql .= 'PRIMARY KEY (id)';
+		$sql .= ') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4';
+		include_once ABSPATH . '/wp-admin/includes/upgrade.php';
+		dbDelta( $sql );
+	}
+}
+
+/**
+ * Remove plugin database table.
+ *
+ * @return void
+ */
+function delete_scrapping_plugin_database_table() {
+	global $wpdb;
+	$sql = "DROP TABLE IF EXISTS `{$wpdb->prefix}`listing";
+	$wpdb->query( $sql );
+}
