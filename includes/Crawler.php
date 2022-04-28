@@ -139,7 +139,7 @@ class Crawler {
 	public function run_scheduled_crawler( $return = false ) {
 		global $wpdb;
 		$wp_track_table = 'listings';
-		$tblname        = $wpdb->prefix . "$wp_track_table";
+		$tblname        = $wpdb->prefix . $wp_track_table;
 
 		/* Before Truncate */
 		$wpdb->query( 'TRUNCATE TABLE ' . $tblname );
@@ -225,6 +225,7 @@ class Crawler {
 					$MasterArr[ $cnt ]['created_at']          = date( 'Y-m-d H:i:s' );
 					$MasterArr[ $cnt ]['updated_at']          = date( 'Y-m-d H:i:s' );
 					$wpdb->insert( $tblname, $MasterArr[ $cnt ] );
+					$MasterArr[ $cnt ] = $wpdb->insert_id;
 					$cnt++;
 				}
 			}
