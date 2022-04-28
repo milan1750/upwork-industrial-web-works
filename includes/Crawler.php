@@ -225,7 +225,6 @@ class Crawler {
 					$MasterArr[ $cnt ]['created_at']          = date( 'Y-m-d H:i:s' );
 					$MasterArr[ $cnt ]['updated_at']          = date( 'Y-m-d H:i:s' );
 					$wpdb->insert( $tblname, $MasterArr[ $cnt ] );
-					$MasterArr[ $cnt ] = $wpdb->insert_id;
 					$cnt++;
 				}
 			}

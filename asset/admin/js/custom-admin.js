@@ -31,7 +31,7 @@ jQuery(document).ready(function ($) {
     })
       .done(function (xhr, textStatus, errorThrown) {
         if (true === xhr.success) {
-          console.log(xhr.data);
+          alert( 'Successfully updated' );
         } else {
           console.log(xhr.data);
         }
