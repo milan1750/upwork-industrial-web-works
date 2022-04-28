@@ -153,18 +153,17 @@ class Listing {
 
 
             if(!empty($listings)):
-                foreach($listings as $listing):
 
             ?>
                 <div class="description">
                     <div class="heading_title">
-                        <h3 class="pull-left"><?php echo $listing->occupation ?></h3>
+                        <h3 class="pull-left"><?php echo $listings[0]->occupation ?></h3>
                         <?php if($region_current_url!=''){?>
                         <a href="<?php echo $region_current_url;?>" class="pull-right"><?php echo esc_html_e( 'Back' );?></a>
                         <?php } ?>
                     </div>
                     <div class="description">
-                        <p><?php echo $listing->program_description?></p>
+                        <p><?php echo $listings[0]->program_description?></p>
                     </div>
                 </div>
                 <div class="container">
@@ -179,7 +178,9 @@ class Listing {
                                 <th><?php echo esc_html_e( 'District' );?></th>
                                 <th><?php echo esc_html_e( 'Action' );?></th>
                             </tr>
-                            <tr>
+							<?php
+								foreach($listings as $listing): ?>
+								<tr>
                                 <td data-th="<?php echo esc_html_e( 'Occ Code' );?>">
                                     <?php echo $listing->occupational_code;?>
                                 </td>
@@ -201,7 +202,9 @@ class Listing {
                                 <td data-th="<?php echo esc_html_e( 'Action' );?>">
                                     <a class="contact_form" href="javascript:void(0)" id="contact_form-<?php echo $listing->id;?>" data-occupation="<?php echo $listing->occupation;?>" data-program_name="<?php echo $listing->program_name;?>" data-listing_id="<?php echo $listing->listing_id;?>" data-district="<?php echo $listing->district;?>"><?php echo esc_html_e('Contact us');?></a><br/>
                                 </td>
-                            </tr>
+
+                            	</tr>
+								<?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -210,8 +213,8 @@ class Listing {
                 </div>
 
             <?php
-                endforeach;
             endif;
+			wp_enqueue_script( 'wpscraper_js' );
         }
     }
 }
