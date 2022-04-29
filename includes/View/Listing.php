@@ -170,24 +170,24 @@ class Listing {
                     <table class="rwd-table checkpoint">
                         <tbody>
                             <tr>
-                                <th><?php echo esc_html_e( 'Occ Code' );?></th>
-                                <th><?php echo esc_html_e( 'Program Name' );?></th>
-                                <th><?php echo esc_html_e( 'Program Hours' );?></th>
-                                <!-- <th><?php echo esc_html_e( 'Sponsor' );?></th>
-                                <th><?php echo esc_html_e( 'Region' );?></th> -->
-                                <th><?php echo esc_html_e( 'District' );?></th>
-                                <th><?php echo esc_html_e( 'Action' );?></th>
+                                <th><?php echo esc_html_e( 'Occ Code', 'wpscraper' );?></th>
+                                <th><?php echo esc_html_e( 'Program Name', 'wpscraper' );?></th>
+                                <th><?php echo esc_html_e( 'Program Hours', 'wpscraper' );?></th>
+                                <!-- <th><?php echo esc_html_e( 'Sponsor', 'wpscraper' );?></th>
+                                <th><?php echo esc_html_e( 'Region', 'wpscraper' );?></th> -->
+                                <th><?php echo esc_html_e( 'District', 'wpscraper' );?></th>
+                                <th><?php echo esc_html_e( 'Action', 'wpscraper' );?></th>
                             </tr>
 							<?php
 								foreach($listings as $listing): ?>
 								<tr>
-                                <td data-th="<?php echo esc_html_e( 'Occ Code' );?>">
+                                <td data-th="<?php echo esc_html_e( 'Occ Code', 'wpscraper' );?>">
                                     <?php echo $listing->occupational_code;?>
                                 </td>
-                                <td data-th="<?php echo esc_html_e( 'Program Name' );?>">
+                                <td data-th="<?php echo esc_html_e( 'Program Name', 'wpscraper' );?>">
                                     <?php echo $listing->program_name;?>
                                 </td>
-                                <td data-th="<?php echo esc_html_e( 'Program Hours' );?>">
+                                <td data-th="<?php echo esc_html_e( 'Program Hours', 'wpscraper' );?>">
                                     <?php echo $listing->program_hour;?>
                                 </td>
                                 <!-- <td data-th="Sponsor">
@@ -196,11 +196,11 @@ class Listing {
                                 <td data-th="Region">
                                     <?php echo $listing->region;?>
                                 </td> -->
-                                <td data-th="<?php echo esc_html_e( 'District' );?>">
+                                <td data-th="<?php echo esc_html_e( 'District', 'wpscraper' );?>">
                                     <?php echo $listing->district;?>
                                 </td>
-                                <td data-th="<?php echo esc_html_e( 'Action' );?>">
-                                    <a class="contact_form" href="javascript:void(0)" id="contact_form-<?php echo $listing->id;?>" data-occupation="<?php echo $listing->occupation;?>" data-program_name="<?php echo $listing->program_name;?>" data-listing_id="<?php echo $listing->listing_id;?>" data-district="<?php echo $listing->district;?>"><?php echo esc_html_e('Contact us');?></a><br/>
+                                <td data-th="<?php echo esc_html_e( 'Action', 'wpscraper' );?>">
+                                    <a class="contact_form" href="javascript:void(0)" id="contact_form-<?php echo esc_attr( $listing->id );?>" data-occupation="<?php echo esc_attr( $listing->occupation );?>" data-program_name="<?php echo esc_attr( $listing->program_name );?>" data-listing_id="<?php echo esc_attr( $listing->listing_id );?>" data-district="<?php echo esc_attr( $listing->district );?>"><?php echo esc_html_e( 'Contact us', 'wpscraper' );?></a><br/>
                                 </td>
 
                             	</tr>
