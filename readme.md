@@ -8,13 +8,12 @@ Welcome to the  repository on GitHub. Here you can browse the source, look at op
 
 WPScraper requires the following dependencies:
 
--   [Node.js](https://nodejs.org/)
 -   [Composer](https://getcomposer.org/)
 
 
 ### Setup
 
-To start using all the tools that come with WPScraper you need to install the necessary Node.js and Composer dependencies:
+To start using all the tools that come with WPScraper you need to install the necessary Composer dependencies:
 
 ```sh
 $ composer install
