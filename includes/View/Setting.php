@@ -30,7 +30,7 @@ class Setting {
 		);
 		add_settings_field(
 			'wpscraper_cronexecution_schedule_period',
-			__( 'CRON Execution Period', 'scrapping' ),
+			__( 'Crawler Execution Period', 'scrapping' ),
 			[ $this, 'scrapping_field_scheduled_period' ],
 			'scrapping',
 			'wpscrapper_settings',
@@ -44,7 +44,7 @@ class Setting {
 
 		add_settings_field(
 			'wpscraper_cronexecution_schedule_time',
-			__( 'CRON Execution Time', 'scrapping' ),
+			__( 'Schedue Crawler ( In Hours )', 'scrapping' ),
 			[ $this, 'scrapping_field_scheduled_time' ],
 			'scrapping',
 			'wpscrapper_settings',
@@ -66,7 +66,7 @@ class Setting {
 	}
 
 	public function scrapping_field_scheduled_time( $args ) {
-		echo '<input type="text" value="' . $args['value'] . '" placeholder="13:50" name="wpscraper_options[' . $args['id'] . ']" id="' . $args['id'] . '"/>';
+		echo '<input type="text" value="' . $args['value'] . '" placeholder="6" name="wpscraper_options[' . $args['id'] . ']" id="' . $args['id'] . '"/>';
 	}
 
 	public static function scrapping_field_scrapping_custom_days( $args ) {

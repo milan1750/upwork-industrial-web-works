@@ -93,7 +93,7 @@ class Crawler {
 			foreach ( $results as $result ) {
 				$html .= '<tr  id="listing_deal_content_tr" class="listing_deal_content_tr">';
 				$html .= '<td data-th="' . esc_attr__( 'Occ Code', 'wpscraper'  ) . '">' . esc_html( $result->occupational_code ) . '</td>';
-				$html .= '<td data-th="' . esc_attr__( 'Occupation' , 'wpscraper' ) . '"><a class="js-open-modal" href="javascript:void(0)" id="js-open-modal-' . $esc_attr( $result->id  ) . '" data-id="' . $esc_attr( $result->id  ) . '">' . $esc_attr( $result->occupation  ) . '</a></td>';
+				$html .= '<td data-th="' . esc_attr__( 'Occupation' , 'wpscraper' ) . '"><a class="js-open-modal" href="javascript:void(0)" id="js-open-modal-' . esc_attr( $result->id  ) . '" data-id="' . esc_attr( $result->id  ) . '">' . esc_attr( $result->occupation  ) . '</a></td>';
 				$html .= '<td data-th="' . esc_attr__( 'Program Name', 'wpscraper'  ) . '">' . esc_html( $result->program_name ) . '</td>';
 				$html .= '<td data-th="' . esc_attr__( 'Program Hours', 'wpscraper'  ) . '">' . esc_html( $result->program_hour ) . '</td>';
 				$html .= '<td data-th="' . esc_attr__( 'District', 'wpscraper' ) . '">' . esc_html( $result->district ) . '</td>';

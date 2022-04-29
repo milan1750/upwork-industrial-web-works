@@ -121,6 +121,12 @@ function create_scrapping_plugin_database_table() {
 		include_once ABSPATH . '/wp-admin/includes/upgrade.php';
 		dbDelta( $sql );
 	}
+
+	wp_clear_scheduled_hook( 'wpscraper_cleanup_scheduled_crawler' );
+	$settings = get_option( 'wpscraper_options', [] );
+	$period   = ! empty( $settings['wpscraper_cronexecution_schedule_period'] ) ? $settings['wpscraper_cronexecution_schedule_period'] : 'daily';
+	$time     = ! empty( $settings['wpscraper_cronexecution_schedule_time'] ) ? $settings['wpscraper_cronexecution_schedule_time'] : 6;
+	wp_schedule_event( absint( $time ) * HOUR_IN_SECONDS , $period, 'wpscraper_cleanup_scheduled_crawler' );
 }
 
 /**

@@ -23,7 +23,6 @@ class WPScraper {
 	public function __construct() {
 		// Initilize.
 		$this->init();
-		$this->install();
 		add_action( 'admin_enqueue_scripts', [ $this, 'wpscraper_admin_script' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'wpscraper_frontend_script' ] );
 	}
@@ -89,18 +88,5 @@ class WPScraper {
 			self::$instance = new self();
 		}
 		return self::$instance;
-	}
-
-	/**
-	 * Install.
-	 *
-	 * @return void
-	 */
-	public static function install() {
-		wp_clear_scheduled_hook( 'wpscraper_cleanup_scheduled_crawler' );
-		$settings = get_option( 'wpscraper_options', [] );
-		$period   = ! empty( $settings['wpscraper_cronexecution_schedule_period'] ) ? $settings['wpscraper_cronexecution_schedule_period'] : 'daily';
-		$time     = ! empty( $settings['wpscraper_cronexecution_schedule_time'] ) ? $settings['wpscraper_cronexecution_schedule_time'] : '12:00';
-		wp_schedule_event( strtotime( date( 'Y:m:d' ) . ' ' . $time . ':00' ), $period, 'wpscraper_cleanup_scheduled_crawler' );
 	}
 }
