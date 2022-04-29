@@ -123,7 +123,7 @@ class Setting {
 		// WordPress will add the "settings-updated" $_GET parameter to the url
 		if ( isset( $_GET['settings-updated'] ) ) {
 			// add settings saved message with the class of "updated"
-			add_settings_error( 'scrapping_messages', 'scrapping_messages', __( 'Settings Saved', 'scrapping' ), 'updated' );
+			add_settings_error( 'scrapping_messages', 'scrapping_messages', __( 'Settings Saved, It will come into effect only when you reactivate the plugin.', 'scrapping' ), 'updated' );
 		}
 		// show error/update messages
 		settings_errors( 'scrapping_messages' );
