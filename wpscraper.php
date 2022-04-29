@@ -91,8 +91,7 @@ wpscraper();
 
 register_activation_hook( WPSCRAPER_PLUGIN_FILE, 'create_scrapping_plugin_database_table' );
 
-register_uninstall_hook( __FILE__,  'delete_scrapping_plugin_database_table' );
-
+register_uninstall_hook( __FILE__, 'delete_scrapping_plugin_database_table' );
 
 /**
  * Create plugin database table.
@@ -113,7 +112,7 @@ function create_scrapping_plugin_database_table() {
 		$sql .= '`occupation` varchar(255) NOT NULL,';
 		$sql .= '`district` varchar(255) NOT NULL,';
 		$sql .= '`created_at` timestamp NOT NULL DEFAULT current_timestamp(),';
-		$sql .= " `updated_at` timestamp NULL DEFAULT NULL,";
+		$sql .= ' `updated_at` timestamp NULL DEFAULT NULL,';
 		$sql .= '`region` int(11),';
 		$sql .= '`sponsor` int(11),';
 		$sql .= 'PRIMARY KEY (id)';
@@ -126,7 +125,7 @@ function create_scrapping_plugin_database_table() {
 	$settings = get_option( 'wpscraper_options', [] );
 	$period   = ! empty( $settings['wpscraper_cronexecution_schedule_period'] ) ? $settings['wpscraper_cronexecution_schedule_period'] : 'daily';
 	$time     = ! empty( $settings['wpscraper_cronexecution_schedule_time'] ) ? $settings['wpscraper_cronexecution_schedule_time'] : 6;
-	wp_schedule_event( absint( $time ) * HOUR_IN_SECONDS , $period, 'wpscraper_cleanup_scheduled_crawler' );
+	wp_schedule_event( absint( $time ) * HOUR_IN_SECONDS, $period, 'wpscraper_cleanup_scheduled_crawler' );
 }
 
 /**

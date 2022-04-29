@@ -70,7 +70,7 @@ class WPScraper {
 
 		wp_enqueue_style( 'scrapping-jquery-ui-css', plugins_url( 'asset/lib/jquery-ui/css/jquery-ui.css', WPSCRAPER_PLUGIN_FILE ), [], WPSCRAPER_VERSION );
 		wp_enqueue_script( 'scrapping-jquery-ui-js', plugins_url( 'asset/lib/jquery-ui/js/jquery-ui.js', WPSCRAPER_PLUGIN_FILE ), [ 'jquery' ], WPSCRAPER_VERSION );
-		wp_enqueue_script( 'scrapping-infinite-scroll-js', plugins_url( 'asset/lib/infinite-scroll/infinite-scroll.pkgd.js', WPSCRAPER_PLUGIN_FILE ),[], WPSCRAPER_VERSION );
+		wp_enqueue_script( 'scrapping-infinite-scroll-js', plugins_url( 'asset/lib/infinite-scroll/infinite-scroll.pkgd.js', WPSCRAPER_PLUGIN_FILE ), [], WPSCRAPER_VERSION );
 	}
 
 	/**

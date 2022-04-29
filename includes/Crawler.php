@@ -79,9 +79,9 @@ class Crawler {
 		global $wpdb;
 		$wpdb_prefix    = $wpdb->prefix;
 		$wpdb_tablename = $wpdb_prefix . 'listings';
-		$limit    = absint( $_GET['limit'] );
-		$start    = absint( $_GET['start'] );
-		$district = ( isset( $_GET['district'] ) ? sanitize_title( wp_unslash( $_GET['district'] ) ) : '' );
+		$limit          = absint( $_GET['limit'] );
+		$start          = absint( $_GET['start'] );
+		$district       = ( isset( $_GET['district'] ) ? sanitize_title( wp_unslash( $_GET['district'] ) ) : '' );
 
 		if ( $district != '' && $district != 'Select District' ) {
 			$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb_tablename WHERE district = %s limit %d,%d", $district, $start, $limit ) );
@@ -92,10 +92,10 @@ class Crawler {
 			$html = '';
 			foreach ( $results as $result ) {
 				$html .= '<tr  id="listing_deal_content_tr" class="listing_deal_content_tr">';
-				$html .= '<td data-th="' . esc_attr__( 'Occ Code', 'wpscraper'  ) . '">' . esc_html( $result->occupational_code ) . '</td>';
-				$html .= '<td data-th="' . esc_attr__( 'Occupation' , 'wpscraper' ) . '"><a class="js-open-modal" href="javascript:void(0)" id="js-open-modal-' . esc_attr( $result->id  ) . '" data-id="' . esc_attr( $result->id  ) . '">' . esc_attr( $result->occupation  ) . '</a></td>';
-				$html .= '<td data-th="' . esc_attr__( 'Program Name', 'wpscraper'  ) . '">' . esc_html( $result->program_name ) . '</td>';
-				$html .= '<td data-th="' . esc_attr__( 'Program Hours', 'wpscraper'  ) . '">' . esc_html( $result->program_hour ) . '</td>';
+				$html .= '<td data-th="' . esc_attr__( 'Occ Code', 'wpscraper' ) . '">' . esc_html( $result->occupational_code ) . '</td>';
+				$html .= '<td data-th="' . esc_attr__( 'Occupation', 'wpscraper' ) . '"><a class="js-open-modal" href="javascript:void(0)" id="js-open-modal-' . esc_attr( $result->id ) . '" data-id="' . esc_attr( $result->id ) . '">' . esc_attr( $result->occupation ) . '</a></td>';
+				$html .= '<td data-th="' . esc_attr__( 'Program Name', 'wpscraper' ) . '">' . esc_html( $result->program_name ) . '</td>';
+				$html .= '<td data-th="' . esc_attr__( 'Program Hours', 'wpscraper' ) . '">' . esc_html( $result->program_hour ) . '</td>';
 				$html .= '<td data-th="' . esc_attr__( 'District', 'wpscraper' ) . '">' . esc_html( $result->district ) . '</td>';
 				$html .= '<td data-th="' . esc_attr__( 'Action', 'wpscraper' ) . '"><a class="contact_form" href="javascript:void(0)" id="contact_form-' . esc_attr( $result->id ) . '" data-occupation="' . esc_attr( $result->occupation ) . '" data-program_name="' . esc_attr( $result->program_name ) . '" data-listing_id="' . esc_attr( $result->listing_id ) . '" data-district="' . esc_attr( $result->district ) . '">' . esc_html__( 'Contact us', 'wpscraper' ) . '</a></td>';
 
