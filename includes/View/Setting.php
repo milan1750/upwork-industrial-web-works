@@ -44,7 +44,7 @@ class Setting {
 
 		add_settings_field(
 			'wpscraper_cronexecution_schedule_time',
-			__( 'Schedue Crawler ( In Hours )', 'scrapping' ),
+			__( 'Schedule Crawler ( In Hours )', 'scrapping' ),
 			[ $this, 'scrapping_field_scheduled_time' ],
 			'scrapping',
 			'wpscrapper_settings',
