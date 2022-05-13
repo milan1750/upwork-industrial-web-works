@@ -203,7 +203,7 @@ class Crawler {
 			$program_description = pq( 'table#ctl00_ContentPlaceHolder1_tblResults tr:eq(1) dd ' )->text();
 			foreach ( $rows as $row ) {
 				$row = pq( $row );
-				if ( (int) $row->find( 'td:eq(4)' )->text() === 4 ) {
+				if ( (int) $row->find( 'td:eq(4)' )->text() === 4 || ( (int) $row->find( 'td:eq(4)' )->text() === 5 && in_array( trim( $row->find( 'td:eq(5)' )->text() ), [ 'Polk' ] ) ) || ( (int) $row->find( 'td:eq(4)' )->text() === 7 && in_array( trim( $row->find( 'td:eq(5)' )->text() ), [ 'Sarasota', 'Manatee' ] ) ) ) {
 					$occupational_code                        = $row->find( 'td:eq(0)' )->text();
 					$program_name                             = $row->find( 'td:eq(1)' )->text();
 					$program_hour                             = $row->find( 'td:eq(2)' )->text();
